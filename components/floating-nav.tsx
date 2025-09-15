@@ -33,7 +33,7 @@ export function FloatingNav() {
   return (
     <>
       <nav
-        className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
           isScrolled ? "floating-nav" : "bg-white/30 backdrop-blur-lg border border-white/10"
         } rounded-full px-6 py-3 shadow-lg`}
         aria-label="Main navigation"
@@ -105,8 +105,8 @@ export function FloatingNav() {
         )}
       </nav>
 
-      {/* Live status placed slightly above the navbar */}
-      <div className="fixed bottom-28 left-1/2 transform -translate-x-1/2 z-40">
+      {/* Live status anchored to the bottom of the viewport */}
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40">
         <div className="glass rounded-full px-4 py-2">
           <LiveStatusIndicator />
         </div>
