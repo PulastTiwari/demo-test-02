@@ -156,9 +156,9 @@ export function NotificationSystem() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative pointer-events-auto">
       {/* Notification Bell */}
-      <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="relative">
+      <Button type="button" aria-haspopup="dialog" aria-expanded={isOpen} variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="relative">
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
           <Badge
@@ -171,9 +171,10 @@ export function NotificationSystem() {
       </Button>
 
       {/* Notification Panel */}
-      {isOpen && (
+  {isOpen && (
         // On small screens open upward above the bottom nav (fixed). On larger screens keep dropdown behavior.
         <Card
+          id="notification-panel"
           className={`fixed bottom-[88px] left-1/2 -translate-x-1/2 w-80 max-w-[90vw] glass-card z-50 shadow-lg
             sm:bottom-auto sm:left-auto sm:translate-x-0 sm:top-full sm:right-0 sm:mt-2 sm:w-96 sm:max-h-96`}
           role="dialog"

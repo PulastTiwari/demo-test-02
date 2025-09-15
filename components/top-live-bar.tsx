@@ -39,7 +39,7 @@ export default function TopLiveBar() {
       </div>
 
       {/* Fixed language toggle at top-right of the site */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+      <div className="fixed top-4 right-4 z-60 flex items-center gap-2 pointer-events-auto">
         <NotificationSystem />
         <LanguageToggle />
       </div>
