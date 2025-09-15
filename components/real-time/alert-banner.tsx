@@ -33,7 +33,10 @@ export function AlertBanner() {
     handleReduced()
     mql?.addEventListener?.("change", handleReduced)
     setMounted(true)
-    return () => window.removeEventListener("resize", updateIsMobile)
+    return () => {
+      window.removeEventListener("resize", updateIsMobile)
+      mql?.removeEventListener?.("change", handleReduced)
+    }
   }, [])
 
   useEffect(() => {
