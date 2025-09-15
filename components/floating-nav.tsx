@@ -6,7 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import LanguageToggle from "@/components/ui/language-toggle"
 import { NotificationSystem } from "@/components/real-time/notification-system"
-import { LiveStatusIndicator } from "@/components/real-time/live-status-indicator"
+import TopLiveBar from "@/components/top-live-bar"
 import { Home, AlertTriangle, BarChart3, Users, Settings, Menu, X, Eye } from "lucide-react"
 
 export function FloatingNav() {
@@ -32,8 +32,12 @@ export function FloatingNav() {
 
   return (
     <>
+      {/* Persistent top live bar */}
+      <TopLiveBar />
+
+      {/* Desktop: top-center nav. Mobile: bottom-centered control (fixed) */}
       <nav
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+        className={`hidden md:flex fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
           isScrolled ? "floating-nav" : "bg-white/30 backdrop-blur-lg border border-white/10"
         } rounded-full px-6 py-3 shadow-lg`}
         aria-label="Main navigation"
@@ -72,16 +76,40 @@ export function FloatingNav() {
               size="sm"
               className="md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu-panel"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+      </nav>
+
+      {/* Mobile bottom nav (visible on small screens) */}
+      <nav className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+          <div className={`bg-white/30 backdrop-blur-lg border border-white/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-2`}> 
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/images/logo.png" alt="Samudra CHETNA" width={28} height={28} className="rounded-full" />
+          </Link>
+          <div className="ml-auto flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu-panel"
+            >
+              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Menu panel opens upward from bottom */}
         {isMobileMenuOpen && (
-          // Keep the mobile menu above the navbar
-          <div className="absolute -top-56 left-1/2 transform -translate-x-1/2 w-72 glass-card rounded-2xl p-4 md:hidden">
+          <div id="mobile-menu-panel" className="absolute -bottom-72 left-1/2 transform -translate-x-1/2 w-72 glass-card rounded-2xl p-4">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon
@@ -104,13 +132,6 @@ export function FloatingNav() {
           </div>
         )}
       </nav>
-
-      {/* Live status anchored to the bottom of the viewport */}
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40">
-        <div className="glass rounded-full px-4 py-2">
-          <LiveStatusIndicator />
-        </div>
-      </div>
     </>
   )
 }

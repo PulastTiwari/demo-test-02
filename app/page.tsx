@@ -30,8 +30,8 @@ function HomePage() {
             </div>
 
             <h1 className="font-manrope text-5xl md:text-6xl font-bold text-foreground mb-6 text-balance">
-              Ocean Hazard
-              <span className="text-accent block">Reporting Platform</span>
+              Samudra Chetna
+              <span className="text-accent block">Ocean Hazard Reporting Platform</span>
             </h1>
 
             <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto text-pretty">

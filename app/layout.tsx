@@ -31,8 +31,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="smooth-scroll">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${manrope.variable}`}>
+        {/* Keyboard-accessible skip link for bypassing navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 bg-white text-sm px-3 py-2 rounded shadow"
+        >
+          Skip to main content
+        </a>
+
         <AlertBanner />
-        <Suspense fallback={null}>{children}</Suspense>
+
+        {/* Main landmark so accessibility tools can detect page region */}
+        <main id="main-content"> 
+          <Suspense fallback={null}>{children}</Suspense>
+        </main>
+
         <Analytics />
       </body>
     </html>

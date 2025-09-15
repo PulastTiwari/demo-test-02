@@ -288,6 +288,7 @@ export function IncidentReportForm() {
                     <button
                       type="button"
                       onClick={() => removeMedia(media.id)}
+                      aria-label="Remove uploaded media"
                       className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       ×

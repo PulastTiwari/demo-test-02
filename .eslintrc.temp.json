@@ -1,0 +1,8 @@
+{
+  "env": { "browser": true, "es2021": true },
+  "extends": ["plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
+  "rules": {
+    "jsx-a11y/no-autofocus": "off"
+  }
+}
