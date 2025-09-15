@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import LanguageToggle from "@/components/ui/language-toggle"
 import { NotificationSystem } from "@/components/real-time/notification-system"
 import { LiveStatusIndicator } from "@/components/real-time/live-status-indicator"
 import { Home, AlertTriangle, BarChart3, Users, Settings, Menu, X, Eye } from "lucide-react"
@@ -60,7 +61,10 @@ export function FloatingNav() {
             })}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-auto">
+            <div className="hidden md:block">
+              <LanguageToggle />
+            </div>
             <NotificationSystem />
             <Button
               variant="ghost"
@@ -91,6 +95,9 @@ export function FloatingNav() {
                   </Link>
                 )
               })}
+              <div className="pt-2">
+                <LanguageToggle />
+              </div>
             </div>
           </div>
         )}
