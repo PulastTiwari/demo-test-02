@@ -35,22 +35,18 @@ export function FloatingNav() {
       {/* Persistent top live bar */}
       <TopLiveBar />
 
-      {/* Desktop: top-center nav. Mobile: bottom-centered control (fixed) */}
+      {/* Unified bottom navigation (fixed) for all viewports */}
       <nav
-        className={`hidden md:flex fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-          isScrolled ? "floating-nav" : "bg-white/30 backdrop-blur-lg border border-white/10"
-        } rounded-full px-6 py-3 shadow-lg`}
+        className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/30 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 shadow-lg transition-all duration-300`}
         aria-label="Main navigation"
       >
-        <div className="flex items-center gap-6">
-          {/* Logo */}
+        <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/images/logo.png" alt="Samudra CHETNA" width={32} height={32} className="rounded-full" />
-            <span className="font-manrope font-bold text-lg text-foreground hidden sm:block">Samudra CHETNA</span>
+            <span className="font-manrope font-bold text-lg text-foreground hidden sm:inline">Samudra CHETNA</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-3">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
@@ -60,19 +56,19 @@ export function FloatingNav() {
                   className="flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
                 >
                   <Icon className="w-4 h-4" />
-                  {item.label}
+                  <span className="hidden md:inline">{item.label}</span>
                 </Link>
               )
             })}
           </div>
 
-          <div className="flex items-center gap-2 ml-auto">
-            {/* language toggle moved to top-right */}
+          <div className="ml-auto flex items-center gap-2">
             <NotificationSystem />
+            {/* mobile toggle visible on small screens */}
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden"
+              className="sm:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
@@ -83,34 +79,9 @@ export function FloatingNav() {
           </div>
         </div>
 
-      </nav>
-
-      {/* Mobile bottom nav (visible on small screens) */}
-      <nav className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-          <div className={`bg-white/30 backdrop-blur-lg border border-white/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-2`}> 
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/logo.png" alt="Samudra CHETNA" width={28} height={28} className="rounded-full" />
-          </Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isMobileMenuOpen}
-                aria-controls="mobile-menu-panel"
-            >
-              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Menu panel opens upward from bottom */}
+        {/* Mobile Menu panel (stacked) */}
         {isMobileMenuOpen && (
-          <div
-            id="mobile-menu-panel"
-            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 w-72 glass-card rounded-2xl p-4"
-          >
+          <div id="mobile-menu-panel" className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 w-72 glass-card rounded-2xl p-4">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon
@@ -126,7 +97,6 @@ export function FloatingNav() {
                   </Link>
                 )
               })}
-              {/* language toggle moved to top-right */}
             </div>
           </div>
         )}
