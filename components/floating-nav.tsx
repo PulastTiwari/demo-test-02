@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import LanguageToggle from "@/components/ui/language-toggle"
+// LanguageToggle moved to top-right in TopLiveBar
 import { NotificationSystem } from "@/components/real-time/notification-system"
 import TopLiveBar from "@/components/top-live-bar"
 import { Home, AlertTriangle, BarChart3, Users, Settings, Menu, X, Eye } from "lucide-react"
@@ -67,9 +67,7 @@ export function FloatingNav() {
           </div>
 
           <div className="flex items-center gap-2 ml-auto">
-            <div className="hidden md:block">
-              <LanguageToggle />
-            </div>
+            {/* language toggle moved to top-right */}
             <NotificationSystem />
             <Button
               variant="ghost"
@@ -109,7 +107,10 @@ export function FloatingNav() {
 
         {/* Mobile Menu panel opens upward from bottom */}
         {isMobileMenuOpen && (
-          <div id="mobile-menu-panel" className="absolute -bottom-72 left-1/2 transform -translate-x-1/2 w-72 glass-card rounded-2xl p-4">
+          <div
+            id="mobile-menu-panel"
+            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 w-72 glass-card rounded-2xl p-4"
+          >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon
@@ -125,9 +126,7 @@ export function FloatingNav() {
                   </Link>
                 )
               })}
-              <div className="pt-2">
-                <LanguageToggle />
-              </div>
+              {/* language toggle moved to top-right */}
             </div>
           </div>
         )}
