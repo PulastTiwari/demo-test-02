@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,10 @@ interface Notification {
 export function NotificationSystem() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [enabled, setEnabled] = useState(true)
   const [unreadCount, setUnreadCount] = useState(0)
+  const bellRef = useRef<HTMLButtonElement | null>(null)
+  const panelRef = useRef<HTMLDivElement | null>(null)
 
   // Mock real-time notifications
   useEffect(() => {
@@ -155,10 +158,34 @@ export function NotificationSystem() {
     }
   }
 
+  useEffect(() => {
+    const handleClickAway = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (isOpen) {
+        if (panelRef.current && panelRef.current.contains(target)) return
+        if (bellRef.current && bellRef.current.contains(target)) return
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickAway)
+    return () => document.removeEventListener("mousedown", handleClickAway)
+  }, [isOpen])
+
   return (
-    <div className="relative pointer-events-auto">
+  // Anchor container matches TopLiveBar's top-right fixed container
+  <div className="relative pointer-events-auto">
       {/* Notification Bell */}
-      <Button type="button" aria-haspopup="dialog" aria-expanded={isOpen} variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="relative">
+      <Button
+        ref={bellRef}
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        variant="ghost"
+        size="sm"
+        onClick={() => setIsOpen((s) => !s)}
+        className="relative"
+      >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
           <Badge
@@ -171,19 +198,31 @@ export function NotificationSystem() {
       </Button>
 
       {/* Notification Panel */}
-  {isOpen && (
-        // On small screens open upward above the bottom nav (fixed). On larger screens keep dropdown behavior.
+      {isOpen && (
+        // Anchor notifications to the top-right of the viewport (near LanguageToggle in TopLiveBar)
         <Card
           id="notification-panel"
-          className={`fixed bottom-[88px] left-1/2 -translate-x-1/2 w-80 max-w-[90vw] glass-card z-50 shadow-lg
-            sm:bottom-auto sm:left-auto sm:translate-x-0 sm:top-full sm:right-0 sm:mt-2 sm:w-96 sm:max-h-96`}
+          ref={panelRef}
+          className={`z-[9999] shadow-lg glass-card w-80 max-w-[95vw] max-h-96 overflow-hidden
+            fixed top-16 right-4 sm:top-16 sm:right-4 md:right-6 lg:right-8`}
           role="dialog"
           aria-label="Notifications"
+          style={{ pointerEvents: 'auto' }}
         >
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Notifications</CardTitle>
               <div className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={enabled}
+                    onChange={() => setEnabled((v) => !v)}
+                    className="form-checkbox h-4 w-4"
+                    aria-label={enabled ? "Disable notifications" : "Enable notifications"}
+                  />
+                  <span className="hidden sm:inline">Notifications</span>
+                </label>
                 {unreadCount > 0 && (
                   <Button variant="ghost" size="sm" onClick={markAllAsRead}>
                     Mark all read

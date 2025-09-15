@@ -26,7 +26,7 @@ export function FloatingNav() {
     { href: "/report", label: "Report Hazard", icon: AlertTriangle },
     { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
     { href: "/analytics", label: "Analytics", icon: Eye },
-    { href: "/community", label: "Community", icon: Users },
+    // Community removed per request
     { href: "/admin", label: "Admin", icon: Settings },
   ]
 
