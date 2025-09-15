@@ -172,7 +172,13 @@ export function NotificationSystem() {
 
       {/* Notification Panel */}
       {isOpen && (
-        <Card className="absolute top-full right-0 mt-2 w-96 max-h-96 glass-card z-50 shadow-lg">
+        // On small screens open upward above the bottom nav (fixed). On larger screens keep dropdown behavior.
+        <Card
+          className={`fixed bottom-[88px] left-1/2 -translate-x-1/2 w-80 max-w-[90vw] glass-card z-50 shadow-lg
+            sm:bottom-auto sm:left-auto sm:translate-x-0 sm:top-full sm:right-0 sm:mt-2 sm:w-96 sm:max-h-96`}
+          role="dialog"
+          aria-label="Notifications"
+        >
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Notifications</CardTitle>
