@@ -25,8 +25,8 @@ export default function TopLiveBar() {
       {/* Top-center live bar */}
       <div
         aria-hidden={!mounted}
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300 ease-out ${
-          // on small screens adjust appearance
+        className={`fixed top-12 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300 ease-out ${
+          // on small screens adjust appearance: start slightly lower so it sits under the language toggle
           mounted ? "translate-y-0 opacity-100" : prefersReducedMotion ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         } sm:top-20`}
         style={prefersReducedMotion ? { transition: "none" } : undefined}

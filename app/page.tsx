@@ -40,11 +40,11 @@ function HomePage() {
             </p>
 
             {/* Auth Forms */}
-            <div className="max-w-md mx-auto">
+            <div className="max-w-md mx-auto pb-24 sm:pb-12">{/* extra bottom padding to avoid floating nav overlap on small screens */}
               {authMode === "login" ? (
-                <LoginForm onToggleMode={() => setAuthMode("register")} />
+                <LoginForm onToggleMode={() => setAuthMode("register") } />
               ) : (
-                <RegisterForm onToggleMode={() => setAuthMode("login")} />
+                <RegisterForm onToggleMode={() => setAuthMode("login") } />
               )}
             </div>
           </div>
