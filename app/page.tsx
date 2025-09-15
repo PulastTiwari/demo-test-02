@@ -18,11 +18,12 @@ function HomePage() {
   if (!user) {
     // Single-screen landing hero: full viewport height and no vertical scrolling.
     return (
-      <div className="h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 relative">
-        <FloatingNav />
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 relative">
+      <FloatingNav />
 
-        {/* Centered Hero Section */}
-        <section className="h-full flex items-center justify-center px-4">
+      {/* Centered Hero Section */}
+      {/* Add extra top padding on small screens so TopLiveBar and LanguageToggle don't overlap the heading */}
+      <section className="h-full flex items-center justify-center px-4 pt-16 sm:pt-8">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Waves className="w-4 h-4" />
@@ -40,7 +41,7 @@ function HomePage() {
             </p>
 
             {/* Auth Forms */}
-            <div className="max-w-md mx-auto pb-24 sm:pb-12">{/* extra bottom padding to avoid floating nav overlap on small screens */}
+            <div className="max-w-md mx-auto pb-28 sm:pb-12">{/* extra bottom padding to avoid floating nav overlap on small screens */}
               {authMode === "login" ? (
                 <LoginForm onToggleMode={() => setAuthMode("register") } />
               ) : (
