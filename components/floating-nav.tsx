@@ -37,13 +37,12 @@ export function FloatingNav() {
 
       {/* Unified bottom navigation (fixed) for all viewports */}
       <nav
-        className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/30 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 shadow-lg transition-all duration-300`}
+        className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 glass border border-white/10 rounded-full px-6 py-3 shadow-lg transition-all duration-300`}
         aria-label="Main navigation"
       >
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/images/logo.png" alt="Samudra CHETNA" width={32} height={32} className="rounded-full" />
-            <span className="font-manrope font-bold text-lg text-foreground hidden sm:inline">Samudra CHETNA</span>
           </Link>
 
           <div className="hidden sm:flex items-center gap-3">
