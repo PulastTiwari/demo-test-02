@@ -1,7 +1,9 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    darkMode: ["class"],
+	// Tailwind's darkMode expects either 'media' or 'class' (string). Using the string keeps
+	// the config compatible with the exported TypeScript type definition.
+	darkMode: 'class',
     content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",

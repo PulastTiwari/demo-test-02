@@ -33,9 +33,10 @@ export function FloatingNav() {
   return (
     <>
       <nav
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-          isScrolled ? "floating-nav" : "bg-white/90 backdrop-blur-md border border-white/20"
+        className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+          isScrolled ? "floating-nav" : "bg-white/30 backdrop-blur-lg border border-white/10"
         } rounded-full px-6 py-3 shadow-lg`}
+        aria-label="Main navigation"
       >
         <div className="flex items-center gap-6">
           {/* Logo */}
@@ -79,7 +80,8 @@ export function FloatingNav() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 glass-card rounded-2xl p-4 md:hidden">
+          // Keep the mobile menu above the navbar
+          <div className="absolute -top-56 left-1/2 transform -translate-x-1/2 w-72 glass-card rounded-2xl p-4 md:hidden">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
                 const Icon = item.icon
@@ -103,7 +105,8 @@ export function FloatingNav() {
         )}
       </nav>
 
-      <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-40">
+      {/* Live status placed slightly above the navbar */}
+      <div className="fixed bottom-28 left-1/2 transform -translate-x-1/2 z-40">
         <div className="glass rounded-full px-4 py-2">
           <LiveStatusIndicator />
         </div>

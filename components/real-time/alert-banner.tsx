@@ -63,29 +63,39 @@ export function AlertBanner() {
   if (alerts.length === 0) return null
 
   return (
-    <div className="fixed top-20 left-0 right-0 z-40 px-4">
-      <div className="max-w-7xl mx-auto space-y-2">
+    // Position the alert at the top-right corner as requested
+    <div className="fixed top-4 right-4 z-50 px-2 w-auto">
+      <div className="space-y-2">
         {alerts.map((alert) => (
-          <Alert key={alert.id} className={`${getAlertStyles(alert.type)} animate-in slide-in-from-top-2 duration-300`}>
-            <AlertTriangle className="h-4 w-4" />
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="font-bold text-sm mb-1">
-                    {alert.title} - {alert.location}
+          <Alert
+            key={alert.id}
+            className={`${getAlertStyles(alert.type)} glass-card animate-in slide-in-from-top-2 duration-300 shadow-lg max-w-sm`}
+          >
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 mt-1" />
+              <div className="flex-1">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="font-bold text-sm mb-1">
+                      {alert.title} - {alert.location}
+                    </div>
+                    <AlertDescription className="text-sm">{alert.message}</AlertDescription>
                   </div>
-                  <AlertDescription className="text-sm">{alert.message}</AlertDescription>
-                </div>
-                <div className="flex items-center gap-2 ml-4">
-                  {alert.actionUrl && (
-                    <Button size="sm" variant="outline">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      View Details
-                    </Button>
-                  )}
-                  {alert.dismissible && (
-                    <Button size="sm" variant="ghost" onClick={() => dismissAlert(alert.id)}>
+
+                  {/* Close / dismiss button (always available) */}
+                  <div className="ml-2">
+                    <Button size="sm" variant="ghost" onClick={() => dismissAlert(alert.id)} aria-label={`Dismiss ${alert.title}`}>
                       <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  {alert.actionUrl && (
+                    <Button size="sm" variant="outline" asChild>
+                      <a href={alert.actionUrl}>
+                        <ExternalLink className="w-3 h-3 mr-1" />
+                        View Details
+                      </a>
                     </Button>
                   )}
                 </div>
