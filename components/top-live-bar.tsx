@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { LiveStatusIndicator } from "@/components/real-time/live-status-indicator"
 import LanguageToggle from "@/components/ui/language-toggle"
+import { NotificationSystem } from "@/components/real-time/notification-system"
 
 export default function TopLiveBar() {
   const [mounted, setMounted] = useState(false)
@@ -38,7 +39,8 @@ export default function TopLiveBar() {
       </div>
 
       {/* Fixed language toggle at top-right of the site */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <NotificationSystem />
         <LanguageToggle />
       </div>
     </>

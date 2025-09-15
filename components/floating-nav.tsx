@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 // LanguageToggle moved to top-right in TopLiveBar
-import { NotificationSystem } from "@/components/real-time/notification-system"
+// NotificationSystem moved to TopLiveBar (top-right)
 import TopLiveBar from "@/components/top-live-bar"
 import { Home, AlertTriangle, BarChart3, Users, Settings, Menu, X, Eye } from "lucide-react"
 
@@ -62,7 +62,6 @@ export function FloatingNav() {
           </div>
 
           <div className="ml-auto flex items-center gap-2">
-            <NotificationSystem />
             {/* mobile toggle visible on small screens */}
             <Button
               variant="ghost"
